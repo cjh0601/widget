@@ -9,10 +9,13 @@ import './App.scss';
 export default function App({ inboxId, visitorId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleClose = () => setIsOpen(false);
 
   const switchTab = (tab) => setActiveTab(tab);
+
+  const toggleExpand = () => setIsExpanded((prev) => !prev);
 
   if (!isOpen) {
     return <ChatBubble isOpen={false} onClick={() => setIsOpen(true)} />;
@@ -24,7 +27,7 @@ export default function App({ inboxId, visitorId }) {
       <ChatBubble isOpen={true} onClick={handleClose} />
 
       {/* 面板 */}
-      <div className="widget-panel">
+      <div className={`widget-panel ${isExpanded ? 'widget-panel--expanded' : ''}`}>
         {/* 页面内容区域 */}
         <div className="widget-panel__content">
           <div className={`widget-panel__tab ${activeTab === 'home' ? 'widget-panel__tab--active' : ''}`}>
@@ -39,6 +42,8 @@ export default function App({ inboxId, visitorId }) {
               inboxId={inboxId}
               visitorId={visitorId}
               onClose={handleClose}
+              isExpanded={isExpanded}
+              onToggleExpand={toggleExpand}
             />
           </div>
 
@@ -51,7 +56,7 @@ export default function App({ inboxId, visitorId }) {
         </div>
 
         {/* 底部导航栏 */}
-        <BottomNav activeTab={activeTab} onTabChange={switchTab} />
+        {!isExpanded && <BottomNav activeTab={activeTab} onTabChange={switchTab} />}
       </div>
     </>
   );

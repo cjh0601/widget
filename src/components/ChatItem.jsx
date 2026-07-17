@@ -12,19 +12,31 @@ const CommodityCard = ({ data }) => {
   const { pic, title, price, skus } = data || {};
 
   const toBuy = () => {
-    window.parent.postMessage({
-      source: 'luna-h5',
-      type: 'to_buy',
-      variant_id: skus[0].out_sku_code.replace('ERP_VAR_', ''),
-    }, '*');
+    const variantId = skus?.[0]?.id;
+    if (!variantId) return;
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ id: variantId, quantity: 1, properties: { ai_source: "upsello" } }]
+      })
+    }).then(function () {
+      window.location.href = "/checkout";
+    });
   };
 
   const addToCart = () => {
-    window.parent.postMessage({
-      source: 'luna-h5',
-      type: 'add_cart',
-      variant_id: skus[0].out_sku_code.replace('ERP_VAR_', ''),
-    }, '*');
+    const variantId = skus?.[0]?.id;
+    if (!variantId) return;
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ id: variantId, quantity: 1, properties: { ai_source: "upsello" } }]
+      })
+    }).then(function () {
+      window.location.href = "/cart?utm_source=upsello";
+    });
   };
 
   return (
@@ -132,20 +144,27 @@ const BundleCard = (props) => {
   const { ui_card } = props;
 
   const toDetail = (name) => {
-    window.parent.postMessage({
-      source: 'luna-h5',
-      type: 'to_detail',
-      name,
-    }, '*');
+    const handle = (name || "")
+      .toLowerCase()
+      .trim()
+      .replace(/[^\p{L}\p{N}]+/gu, "-")
+      .replace(/^-+|-+$/g, "");
+    window.location.href = "/products/" + handle + "?utm_source=upsello";
   };
 
   const toBuy = (variant_id, discount_code) => {
-    window.parent.postMessage({
-      source: 'luna-h5',
-      type: 'to_buy',
-      variant_id,
-      discount_code,
-    }, '*');
+    if (!variant_id) return;
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ id: variant_id, quantity: 1, properties: { ai_source: "upsello" } }]
+      })
+    }).then(function () {
+      window.location.href = discount_code
+        ? "/checkout?discount=" + discount_code
+        : "/checkout";
+    });
   };
 
   const safeComponents = Array.isArray(ui_card?.components) ? ui_card.components : [];
@@ -506,6 +525,7 @@ export default function ChatItem({
               </div>
             ) : (
               <MarkdownRender
+                // style={{ fontFamily: '--cw-font-family'  }}
                 raw={content}
                 components={{
                   code: MarkdownCodeRenderer,

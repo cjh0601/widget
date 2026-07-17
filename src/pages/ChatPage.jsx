@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Input } from '@douyinfe/semi-ui';
-import { IconClose, IconSend } from '@douyinfe/semi-icons';
+import { IconClose, IconSend, IconArrowUpLeft, IconArrowDownRight ,IconExpand ,IconShrink } from '@douyinfe/semi-icons';
 import ChatItem from '../components/ChatItem';
 import './ChatPage.scss';
 
@@ -24,7 +24,7 @@ function formatToHM(time) {
   return `${hh}:${mm}`;
 }
 
-export default function ChatPage({ inboxId, visitorId, onClose }) {
+export default function ChatPage({ inboxId, visitorId, onClose, isExpanded, onToggleExpand }) {
   // ---- 会话状态 ----
   const [sourceId, setSourceId] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -269,10 +269,23 @@ export default function ChatPage({ inboxId, visitorId, onClose }) {
     <div className="chat-page">
       {/* Header */}
       <div className="chat-page__header">
+        <div
+          className="chat-page__expand-btn"
+          onClick={onToggleExpand}
+          role="button"
+          tabIndex={0}
+          aria-label={isExpanded ? 'Collapse' : 'Expand'}
+        >
+          {isExpanded ? (
+            <IconShrink size="large" />
+          ) : (
+            <IconExpand size="large" />
+          )}
+        </div>
         <div className="chat-page__header-title"></div>
-        <button className="chat-page__close-btn" onClick={onClose} aria-label="Close">
+        <div className="chat-page__close-btn" onClick={onClose} role="button" tabIndex={0} aria-label="Close">
           <IconClose size="large" />
-        </button>
+        </div>
       </div>
 
       {/* Messages */}

@@ -145,9 +145,9 @@ export default function HelpPage({ visitorId, onClose }) {
     <div className="help-page">
       <div className="help-page__header">
         <div />
-        <button className="help-page__close-btn" onClick={onClose} aria-label="Close">
+        <div className="help-page__close-btn" onClick={onClose} role="button" tabIndex={0} aria-label="Close">
           <IconClose size="large" />
-        </button>
+        </div>
       </div>
 
       <div className="help-page__content">

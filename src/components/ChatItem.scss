@@ -4,6 +4,10 @@
   animation: chat-item-enter 0.16s ease-out both;
 }
 
+.semi-typography{
+  font-family: var(--cw-font-family)!important;
+}
+
 .chat-item--agent {
   justify-content: flex-start;
 }

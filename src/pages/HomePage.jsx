@@ -22,13 +22,15 @@ export default function HomePage({ onSwitchToChat, onClose }) {
       <div className="home-page__header">
         <div />
         <div className="home-page__header-right">
-          <button
+          <div
             className="home-page__close-btn"
             onClick={onClose}
+            role="button"
+            tabIndex={0}
             aria-label="Close"
           >
             <IconClose size="large" />
-          </button>
+          </div>
         </div>
       </div>
 

@@ -5,9 +5,7 @@
 :host,
 #chat-app {
   /* ===== 0. 全局字体 ===== */
-  --cw-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", "PingFang SC",
-    "Microsoft YaHei", sans-serif;
+  --cw-font-family: Arial;
 
   /* ===== 1. 基础色板 ===== */
   --cw-color-primary: #684BFB;
