@@ -56,15 +56,15 @@ export default function App({ inboxId, visitorId }) {
         </div>
 
         {/* 底部导航栏 */}
-        {!isExpanded && <BottomNav activeTab={activeTab} onTabChange={switchTab} />}
+        <BottomNav activeTab={activeTab} onTabChange={switchTab} hidden={isExpanded} />
       </div>
     </>
   );
 }
 
-function BottomNav({ activeTab, onTabChange }) {
+function BottomNav({ activeTab, onTabChange, hidden }) {
   return (
-    <div className="widget-panel__nav">
+    <div className={`widget-panel__nav ${hidden ? 'widget-panel__nav--hidden' : ''}`}>
       <button
         className={`widget-panel__nav-item ${activeTab === 'home' ? 'widget-panel__nav-item--active' : ''}`}
         onClick={() => onTabChange('home')}

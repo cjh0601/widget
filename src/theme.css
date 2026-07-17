@@ -69,4 +69,7 @@
   --cw-shadow-bubble: 0 4px 16px rgba(79, 70, 229, 0.4);
   --cw-shadow-bubble-hover: 0 6px 20px rgba(79, 70, 229, 0.55);
   --cw-shadow-bubble-close: 0 4px 16px rgba(239, 68, 68, 0.4);
+
+  /* ===== 10. 导航栏 ===== */
+  --cw-nav-item-active-shadow: 0 10px 24px rgba(104, 75, 251, 0.12);
 }

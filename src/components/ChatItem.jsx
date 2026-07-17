@@ -537,7 +537,7 @@ export default function ChatItem({
 
         {isAgent && update ? (
           <div className="chat-item__meta">
-            <IconBolt style={{ color: '#684BFB', marginRight: 4, fontSize: 12 }} />
+            <IconBolt style={{ color: 'var(--cw-color-primary)', marginRight: 4, fontSize: 12 }} />
             AI Reply · {update}
           </div>
         ) : null}

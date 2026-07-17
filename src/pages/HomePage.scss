@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   background:
-    radial-gradient(circle at top left, rgba(104, 75, 251, 0.18) 0%, rgba(104, 75, 251, 0) 34%),
+    // radial-gradient(circle at top left, rgba(104, 75, 251, 0.18) 0%, rgba(104, 75, 251, 0) 34%),
     var(--cw-gradient-home);
 }
 
@@ -26,13 +26,13 @@
   width: 36px;
   height: 36px;
   // border: 1px solid rgba(26, 26, 26, 0.08);
-  border-radius: 999px;
+  // border-radius: 999px;
   // background: rgba(255, 255, 255, 0.82);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.06);
+  // box-shadow: 0 8px 20px rgba(26, 26, 26, 0.06);
 }
 
 .home-page__body {

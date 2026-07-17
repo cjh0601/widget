@@ -58,7 +58,7 @@ export default function HelpPage({ visitorId, onClose }) {
       title: 'Preference for Offers',
       subtitle: 'Manage your benefit reminders',
       icon: (
-        <IconSetting size="large" style={{ color: '#684BFB' }} />
+        <IconSetting size="large" style={{ color: 'var(--cw-color-primary)' }} />
       ),
     },
     {
@@ -66,7 +66,7 @@ export default function HelpPage({ visitorId, onClose }) {
       title: 'Frequently Asked Questions',
       subtitle: 'Find quick answers to common questions',
       icon: (
-        <IconHelpCircle size="large" style={{ color: '#684BFB' }} />
+        <IconHelpCircle size="large" style={{ color: 'var(--cw-color-primary)' }} />
       ),
     },
   ];
@@ -79,9 +79,9 @@ export default function HelpPage({ visitorId, onClose }) {
             <IconChevronLeft size="small" style={{ color: '#1a1a1a' }} />
             <span className="help-page__subpage-title">Preference for Offers</span>
           </button>
-          <button className="help-page__close-btn" onClick={onClose} aria-label="Close">
+          <div className="help-page__close-btn" onClick={onClose} aria-label="Close">
             <IconClose size="large" />
-          </button>
+          </div>
         </div>
 
         <div className="help-page__subpage-content">

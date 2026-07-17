@@ -53,7 +53,7 @@ export default function HomePage({ onSwitchToChat, onClose }) {
               </div>
             </div>
             <div className="home-page__question-icon">
-              <IconComment size="default" style={{ color: '#684BFB' }} />
+              <IconComment size="default" style={{ color: 'var(--cw-color-primary)' }} />
             </div>
           </div>
           <button className="home-page__chat-btn" onClick={onSwitchToChat}>
