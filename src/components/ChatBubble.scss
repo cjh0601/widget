@@ -1,0 +1,51 @@
+.chat-bubble {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #684bfb 0%, #4f46e5 100%);
+  color: var(--cw-color-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--cw-shadow-bubble);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+  z-index: 1;
+}
+
+.chat-bubble:hover {
+  transform: scale(1.06);
+  box-shadow: var(--cw-shadow-bubble-hover);
+}
+
+.chat-bubble--active {
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--cw-color-bubble);
+  border-color: rgba(104, 75, 251, 0.12);
+  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.14);
+}
+
+.chat-bubble--active:hover {
+  color: var(--cw-color-bg);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ef4444 100%);
+  box-shadow: var(--cw-shadow-bubble-close);
+}
+
+@media (max-width: 640px) {
+  .chat-bubble {
+    right: 18px;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .chat-bubble--active {
+    display: none;
+  }
+}

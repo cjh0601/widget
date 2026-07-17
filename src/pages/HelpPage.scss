@@ -1,0 +1,310 @@
+.help-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(104, 75, 251, 0.16) 0%, rgba(104, 75, 251, 0) 32%),
+    var(--cw-gradient-home);
+  overflow-y: auto;
+}
+
+.help-page__header {
+  padding: 20px 24px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.help-page__close-btn,
+.help-page__back-btn {
+  cursor: pointer;
+}
+
+.help-page__close-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-page__back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  padding: 4px 0;
+}
+
+.help-page__subpage-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--cw-color-text);
+  margin-left: 2px;
+}
+
+.help-page__content,
+.help-page__subpage-content {
+  flex: 1;
+  padding: 14px 24px 24px;
+}
+
+.help-page__options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.help-page__option-card,
+.help-page__info-card,
+.help-page__simple-card,
+.help-page__details-card {
+  border: 1px solid var(--cw-color-border-soft);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--cw-shadow-card);
+  backdrop-filter: blur(12px);
+}
+
+.help-page__option-card {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.help-page__option-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(104, 75, 251, 0.18);
+  box-shadow: var(--cw-shadow-card-hover);
+}
+
+.help-page__option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.help-page__option-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f9f7ff 0%, #f2eeff 100%);
+  border: 1px solid var(--cw-color-primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-page__option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.help-page__option-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cw-color-text);
+}
+
+.help-page__option-subtitle {
+  font-size: 12px;
+  color: var(--cw-color-text-secondary);
+  line-height: 1.45;
+}
+
+.help-page__option-arrow {
+  color: var(--cw-color-text-secondary);
+}
+
+.help-page__switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 2px 0 14px;
+}
+
+.help-page__switch-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cw-color-text);
+}
+
+.help-page__toggle {
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--cw-color-text-disabled);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.help-page__toggle--on {
+  background: var(--cw-color-primary);
+}
+
+.help-page__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.help-page__toggle-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--cw-color-bg);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.help-page__toggle--on .help-page__toggle-knob {
+  transform: translateX(20px);
+}
+
+.help-page__info-card,
+.help-page__simple-card,
+.help-page__details-card {
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.help-page__info-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cw-color-text);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.help-page__info-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  color: var(--cw-color-text-body);
+}
+
+.help-page__info-list,
+.help-page__details-list {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  list-style: disc;
+}
+
+.help-page__info-list li,
+.help-page__details-list li {
+  margin: 0;
+}
+
+.help-page__info-list li:not(:last-child),
+.help-page__details-list li:not(:last-child) {
+  margin-bottom: 6px;
+}
+
+.help-page__info-list li::marker,
+.help-page__details-list li::marker {
+  color: var(--cw-color-text-marker);
+}
+
+.help-page__info-list--right {
+  list-style: none;
+  padding: 0;
+}
+
+.help-page__info-list--right li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.help-page__info-list--right li::before {
+  content: '\2794';
+  color: var(--cw-color-text-marker);
+  line-height: 1.55;
+}
+
+.help-page__simple-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cw-color-text);
+  margin-bottom: 6px;
+}
+
+.help-page__simple-card-text,
+.help-page__details-content {
+  font-size: 13px;
+  color: var(--cw-color-text-body);
+  line-height: 1.6;
+}
+
+.help-page__details-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.help-page__details-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cw-color-text);
+}
+
+.help-page__details-summary::-webkit-details-marker {
+  display: none;
+}
+
+.help-page__details-content {
+  padding: 0 16px 16px;
+}
+
+.help-page__details-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.help-page__details-card[open] .help-page__details-arrow {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .help-page__header,
+  .help-page__content,
+  .help-page__subpage-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .help-page__info-columns {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

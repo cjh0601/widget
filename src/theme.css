@@ -1,0 +1,74 @@
+/* ============================================================
+   Chat Widget — 主题系统
+   ============================================================ */
+
+:host,
+#chat-app {
+  /* ===== 0. 全局字体 ===== */
+  --cw-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+
+  /* ===== 1. 基础色板 ===== */
+  --cw-color-primary: #684BFB;
+  --cw-color-primary-hover: #5a3de8;
+  --cw-color-primary-disabled: #c4b5fd;
+
+  --cw-color-primary-bg: #F7F5FF;
+  --cw-color-primary-bg-hover: #eee9ff;
+  --cw-color-primary-bg-alt: #F2EEFF;
+  --cw-color-primary-border: #BDB1FF;
+
+  /* ===== 2. 功能色 ===== */
+  --cw-color-bubble: #4f46e5;
+  --cw-color-danger: #ef4444;
+  --cw-color-success: #4CAF50;
+
+  /* ===== 3. 文字层级 ===== */
+  --cw-color-text: #1a1a1a;
+  --cw-color-text-secondary: #666;
+  --cw-color-text-body: #594139;
+  --cw-color-text-hint: #999;
+  --cw-color-text-marker: #9ca3af;
+  --cw-color-text-disabled: #d1d5db;
+
+  /* ===== 4. 背景 ===== */
+  --cw-color-bg: #fff;
+  --cw-color-surface: rgba(240, 240, 240, 0.3);
+  --cw-color-surface-raised: rgba(255, 255, 255, 0.75);
+  --cw-color-surface-glass: rgba(255, 255, 255, 0.55);
+  --cw-color-border-soft: rgba(104, 75, 251, 0.10);
+
+  /* ===== 5. 消息气泡 ===== */
+  --cw-color-bubble-agent-bg: #f6f3f2;
+  --cw-color-bubble-agent-text: #101427;
+  --cw-color-bubble-user-bg: #684BFB;
+  --cw-color-bubble-user-text: #fff;
+
+  /* ===== 6. 阴影 ===== */
+  --cw-shadow-button: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --cw-shadow-button-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --cw-shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --cw-shadow-card: 0px 10.27px 13.4px rgba(145, 145, 145, 0.1);
+  --cw-shadow-card-raised: 0px 10.27px 13.4px rgba(145, 145, 145, 0.15);
+  --cw-shadow-highlight: 0 8px 20px rgba(145, 145, 145, 0.14);
+  --cw-shadow-input: 0px 6px 25px rgba(145, 145, 145, 0.15);
+  --cw-shadow-overlay: 0 28px 60px rgba(17, 24, 39, 0.18);
+  --cw-shadow-nav: 0px -4px 12px rgba(0, 0, 0, 0.03);
+
+  /* ===== 7. 圆角 ===== */
+  --cw-radius-sm: 8px;
+  --cw-radius-md: 12px;
+  --cw-radius-lg: 16px;
+  --cw-radius-xl: 20px;
+  --cw-radius-full: 50%;
+
+  /* ===== 8. 渐变 ===== */
+  --cw-gradient-home: linear-gradient(180deg, #E1DBFF 0%, #FFFFFF 30%);
+  --cw-gradient-chat: linear-gradient(180deg, #E1DBFF 0%, #FFFFFF 13%);
+
+  /* ===== 9. 气泡阴影（复用色板值） ===== */
+  --cw-shadow-bubble: 0 4px 16px rgba(79, 70, 229, 0.4);
+  --cw-shadow-bubble-hover: 0 6px 20px rgba(79, 70, 229, 0.55);
+  --cw-shadow-bubble-close: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
