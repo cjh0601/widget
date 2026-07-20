@@ -56,7 +56,7 @@ export default function HomePage({ onSwitchToChat, onClose }) {
               <IconComment size="default" style={{ color: 'var(--cw-color-primary)' }} />
             </div>
           </div>
-          <button className="home-page__chat-btn" onClick={onSwitchToChat}>
+          <button className="home-page__chat-btn" onClick={() => onSwitchToChat()}>
             <IconComment size="default " style={{ marginRight: '8px', color: 'white' }} />
             Chat Now
           </button>
@@ -74,7 +74,7 @@ export default function HomePage({ onSwitchToChat, onClose }) {
                 key={item.key}
                 type="button"
                 className="home-page__highlight-card"
-                onClick={() => onSwitchToChat()}
+                onClick={() => onSwitchToChat(item.title)}
               >
                 <div className="home-page__highlight-left">
                   <div className="home-page__highlight-icon">

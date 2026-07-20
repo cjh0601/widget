@@ -34,6 +34,17 @@
   box-shadow: 0 12px 24px rgba(17, 24, 39, 0.14);
 }
 
+.chat-bubble--dragging {
+  transition: none !important;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grabbing;
+}
+
+.chat-bubble--no-drag {
+  cursor: pointer;
+}
+
 
 
 @media (max-width: 640px) {

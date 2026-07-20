@@ -24,7 +24,7 @@ function formatToHM(time) {
   return `${hh}:${mm}`;
 }
 
-export default function ChatPage({ inboxId, visitorId, onClose, isExpanded, onToggleExpand }) {
+export default function ChatPage({ inboxId, visitorId, initialMessage, onInitialMessageSent, onClose, isExpanded, onToggleExpand }) {
   // ---- 会话状态 ----
   const [sourceId, setSourceId] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -102,6 +102,16 @@ export default function ChatPage({ inboxId, visitorId, onClose, isExpanded, onTo
   const onEnterPress = () => doSendMessage(input);
   const onQuickAction = (text) => doSendMessage(text);
   const onFollowUpClick = (text) => doSendMessage(text);
+
+  // ---- 自动发送初始消息（来自 HomePage highlights） ----
+  const initialSentRef = useRef(false);
+  useEffect(() => {
+    if (sessionReady && initialMessage && !initialSentRef.current) {
+      initialSentRef.current = true;
+      doSendMessage(initialMessage);
+      onInitialMessageSent?.();
+    }
+  }, [sessionReady, initialMessage, doSendMessage, onInitialMessageSent]);
 
   // ---- WebSocket 连接 ----
   const connectWebSocket = useCallback(

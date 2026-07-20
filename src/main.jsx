@@ -36,10 +36,14 @@ if (mountNode) {
   };
   applySettings(mountNode, widgetSettings);
 
+  // 读取 enableDrag（Shopify checkbox 返回 "true" / "false" 字符串，为空时默认 true）
+  const enableDragRaw = mountNode?.dataset?.enableDrag;
+  const enableDrag = enableDragRaw === '' || enableDragRaw === 'true' || enableDragRaw == null;
+
   ReactDOM.createRoot(mountNode).render(
     React.createElement(React.StrictMode, null,
       React.createElement(ConfigProvider, { theme, settings: widgetSettings },
-        React.createElement(App, config)
+        React.createElement(App, { ...config, enableDrag })
       )
     )
   );
