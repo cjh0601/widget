@@ -115,7 +115,9 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     }
 
     // 拖拽后根据气泡实际位置计算面板弹出方向
-    const bubble = document.querySelector('.chat-bubble');
+    // Shadow DOM 中 document.querySelector 无法穿透，需用 shadow root 查找
+    const root = window.__CHAT_SHADOW_ROOT__ || document;
+    const bubble = root.querySelector('.chat-bubble');
     if (!bubble) return;
 
     const rect = bubble.getBoundingClientRect();
