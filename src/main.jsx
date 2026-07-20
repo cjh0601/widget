@@ -28,16 +28,17 @@ if (mountNode) {
   const theme = datasetTheme || currentTheme;
   applyTheme(theme, mountNode);
 
-  // 应用字体和位置设置
-  applySettings(mountNode, {
+  // 字体和位置设置（传给 ConfigProvider，同时通过 CSS 变量落到 DOM）
+  const widgetSettings = {
     fontFamily: mountNode?.dataset?.fontFamily,
     posH: mountNode?.dataset?.positionHorizontal,
     posV: mountNode?.dataset?.positionVertical,
-  });
+  };
+  applySettings(mountNode, widgetSettings);
 
   ReactDOM.createRoot(mountNode).render(
     React.createElement(React.StrictMode, null,
-      React.createElement(ConfigProvider, null,
+      React.createElement(ConfigProvider, { theme, settings: widgetSettings },
         React.createElement(App, config)
       )
     )
