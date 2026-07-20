@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
 import { IconComment, IconHelpCircle, IconHome } from '@douyinfe/semi-icons';
 import ChatBubble from './components/ChatBubble';
 import HomePage from './pages/HomePage';
@@ -48,9 +48,20 @@ export default function App({ inboxId, visitorId, enableDrag }) {
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       const dx = clientX - dragStartRef.current.x;
       const dy = clientY - dragStartRef.current.y;
+      const rawX = bubbleOffsetRef.current.x + dx;
+      const rawY = bubbleOffsetRef.current.y + dy;
+
+      // 边界钳制：气泡尺寸 64×64，默认距右下 24px
+      const BUBBLE_SIZE = 64;
+      const MARGIN = 24;
+      const maxX = MARGIN;
+      const minX = -(window.innerWidth - MARGIN - BUBBLE_SIZE);
+      const maxY = MARGIN;
+      const minY = -(window.innerHeight - MARGIN - BUBBLE_SIZE);
+
       const newOffset = {
-        x: bubbleOffsetRef.current.x + dx,
-        y: bubbleOffsetRef.current.y - dy,
+        x: Math.min(maxX, Math.max(minX, rawX)),
+        y: Math.min(maxY, Math.max(minY, rawY)),
       };
       bubbleOffsetRef.current = newOffset;
       setBubbleOffset(newOffset);
@@ -89,6 +100,60 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     ? { transform: `translate(${bubbleOffset.x}px, ${bubbleOffset.y}px)` }
     : undefined;
 
+  // ---- 面板位置自适应：根据气泡在屏幕中的实际位置，动态调整面板弹出方向 ----
+  const [panelAnchorStyle, setPanelAnchorStyle] = useState(undefined);
+
+  useLayoutEffect(() => {
+    if (!isOpen) {
+      setPanelAnchorStyle(undefined);
+      return;
+    }
+    // 未拖拽时使用 CSS 默认定位（气泡右下角，面板在上方）
+    if (!enableDrag || (bubbleOffset.x === 0 && bubbleOffset.y === 0)) {
+      setPanelAnchorStyle(undefined);
+      return;
+    }
+
+    // 拖拽后根据气泡实际位置计算面板弹出方向
+    const bubble = document.querySelector('.chat-bubble');
+    if (!bubble) return;
+
+    const rect = bubble.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const GAP = 16;
+    const MARGIN = 24;
+    const PANEL_W = 420;
+    const PANEL_H = 720;
+
+    const style = {};
+
+    // 水平：气泡中心在左半屏 → 面板左对齐；在右半屏 → 面板右对齐
+    const bubbleCenterX = rect.left + rect.width / 2;
+    if (bubbleCenterX < vw / 2) {
+      style.left = `${Math.max(MARGIN, rect.left)}px`;
+      style.right = 'auto';
+    } else {
+      style.right = `${Math.max(MARGIN, vw - rect.right)}px`;
+      style.left = 'auto';
+    }
+    style.maxWidth = `${Math.min(PANEL_W, vw - 2 * MARGIN)}px`;
+
+    // 垂直：气泡中心在上半屏 → 面板在气泡下方；在下半屏 → 面板在气泡上方
+    const bubbleCenterY = rect.top + rect.height / 2;
+    if (bubbleCenterY < vh / 2) {
+      style.top = `${rect.bottom + GAP}px`;
+      style.bottom = 'auto';
+      style.maxHeight = `${Math.min(PANEL_H, vh - rect.bottom - GAP - MARGIN)}px`;
+    } else {
+      style.bottom = `${vh - rect.top + GAP}px`;
+      style.top = 'auto';
+      style.maxHeight = `${Math.min(PANEL_H, rect.top - GAP - MARGIN)}px`;
+    }
+
+    setPanelAnchorStyle(style);
+  }, [isOpen, bubbleOffset, enableDrag]);
+
   if (!isOpen) {
     return (
       <ChatBubble
@@ -114,10 +179,10 @@ export default function App({ inboxId, visitorId, enableDrag }) {
         bubbleStyle={bubbleStyle}
       />
 
-      {/* 面板：拖拽时跟随气泡 */}
+      {/* 面板：根据气泡位置自适应弹出方向 */}
       <div
         className={`widget-panel ${isExpanded ? 'widget-panel--expanded' : ''}`}
-        style={enableDrag ? bubbleStyle : undefined}
+        style={panelAnchorStyle}
       >
         {/* 页面内容区域 */}
         <div className="widget-panel__content">
