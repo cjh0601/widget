@@ -359,3 +359,68 @@ export function getThemeConfig(themeName) {
 
 // 兼容旧版导出
 export const defaultConfig = themePresets.default;
+
+// ============================================================
+// 设置项管理（字体 / 气泡位置）
+// ============================================================
+
+/**
+ * 垂直位置 → 气泡距底部距离（px）
+ */
+const VERTICAL_BOTTOM_MAP = { low: 24, medium: 80, high: 160 };
+
+/**
+ * 水平位置 → 桌面端 CSS
+ */
+const HORIZONTAL_CSS_MAP = {
+  left: { right: 'auto', left: '24px', transform: 'none' },
+  center: { right: 'auto', left: '50%', transform: 'translateX(-50%)' },
+  right: { right: '24px', left: 'auto', transform: 'none' },
+};
+
+/**
+ * 水平位置 → 移动端 CSS（边距略小）
+ */
+const HORIZONTAL_MOBILE_CSS_MAP = {
+  left: { right: 'auto', left: '18px', transform: 'none' },
+  center: { right: 'auto', left: '50%', transform: 'translateX(-50%)' },
+  right: { right: '18px', left: 'auto', transform: 'none' },
+};
+
+/**
+ * 根据 dataset 设置项，应用字体和位置 CSS 变量到目标元素
+ * @param {HTMLElement} el - 目标元素（#chat-app）
+ * @param {string} fontFamily - 字体设置值
+ * @param {string} posH - 水平位置：left | center | right
+ * @param {string} posV - 垂直位置：low | medium | high
+ */
+export function applySettings(el, { fontFamily, posH, posV } = {}) {
+  if (!el) return;
+
+  // 字体
+  if (fontFamily) {
+    el.style.setProperty('--cw-font-family', fontFamily);
+  }
+
+  // 位置
+  const h = posH || 'right';
+  const v = posV || 'low';
+  const hCSS = HORIZONTAL_CSS_MAP[h] || HORIZONTAL_CSS_MAP.right;
+  const hCSSMobile = HORIZONTAL_MOBILE_CSS_MAP[h] || HORIZONTAL_MOBILE_CSS_MAP.right;
+  const bubbleBottom = VERTICAL_BOTTOM_MAP[v] || 24;
+
+  el.style.setProperty('--cw-bubble-bottom', `${bubbleBottom}px`);
+  el.style.setProperty('--cw-panel-bottom',  `${bubbleBottom + 72}px`);
+  el.style.setProperty('--cw-chat-bottom',   `${bubbleBottom + 76}px`);
+
+  el.style.setProperty('--cw-bubble-right', hCSS.right);
+  el.style.setProperty('--cw-bubble-left',  hCSS.left);
+  el.style.setProperty('--cw-panel-right',  hCSS.right);
+  el.style.setProperty('--cw-panel-left',   hCSS.left);
+  el.style.setProperty('--cw-chat-right',   hCSS.right);
+  el.style.setProperty('--cw-chat-left',    hCSS.left);
+
+  // 移动端
+  el.style.setProperty('--cw-bubble-right-mobile', hCSSMobile.right);
+  el.style.setProperty('--cw-bubble-left-mobile',  hCSSMobile.left);
+}
