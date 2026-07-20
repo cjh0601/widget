@@ -1,7 +1,8 @@
 .chat-bubble {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: var(--cw-bubble-right, 24px);
+  left: var(--cw-bubble-left, auto);
+  bottom: var(--cw-bubble-bottom, 24px);
   width: 64px;
   height: 64px;
   border-radius: 999px;
@@ -37,8 +38,9 @@
 
 @media (max-width: 640px) {
   .chat-bubble {
-    right: 18px;
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    right: var(--cw-bubble-right-mobile, 18px);
+    left: var(--cw-bubble-left-mobile, auto);
+    bottom: calc(var(--cw-bubble-bottom, 24px) + env(safe-area-inset-bottom, 0px));
   }
 
   .chat-bubble--active {

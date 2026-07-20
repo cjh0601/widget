@@ -20,8 +20,9 @@
 
 .widget-panel {
   position: fixed;
-  right: 24px;
-  bottom: 96px;
+  right: var(--cw-panel-right, 24px);
+  left: var(--cw-panel-left, auto);
+  bottom: var(--cw-panel-bottom, 96px);
   width: min(420px, calc(100vw - 40px));
   height: min(720px, calc(100vh - 128px));
   display: flex;

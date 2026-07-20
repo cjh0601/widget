@@ -1,8 +1,9 @@
 /* ===== Chat 主容器 ===== */
 .chat-view {
   position: fixed;
-  right: 24px;
-  bottom: 100px;
+  right: var(--cw-chat-right, 24px);
+  left: var(--cw-chat-left, auto);
+  bottom: var(--cw-chat-bottom, 100px);
   width: 400px;
   height: 600px;
   max-width: calc(100vw - 48px);

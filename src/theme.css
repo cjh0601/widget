@@ -7,6 +7,19 @@
   /* ===== 0. 全局字体 ===== */
   --cw-font-family: Arial;
 
+  /* ===== 0.1 定位（可由外部覆盖） ===== */
+  --cw-bubble-right: 24px;
+  --cw-bubble-left: auto;
+  --cw-bubble-bottom: 24px;
+  --cw-bubble-right-mobile: 18px;
+  --cw-bubble-left-mobile: auto;
+  --cw-panel-right: 24px;
+  --cw-panel-left: auto;
+  --cw-panel-bottom: 96px;
+  --cw-chat-right: 24px;
+  --cw-chat-left: auto;
+  --cw-chat-bottom: 100px;
+
   /* ===== 1. 基础色板 ===== */
   --cw-color-primary: #684BFB;
   --cw-color-primary-hover: #5a3de8;

@@ -301,11 +301,11 @@ export const themePresets = {
     'radius-xl': '20px',
     'radius-full': '50%',
     'gradient-home': `
-     radial-gradient(circle at top left, rgba(104, 75, 251, 0.18) 0%, rgba(104, 75, 251, 0) 34%),
+     radial-gradient(circle at top left, rgba(67, 63, 85, 0.18) 0%, rgba(104, 75, 251, 0) 34%),
     linear-gradient(180deg, #696969ff 0%, rgba(255, 255, 255, 1) 30%)
     `
     ,
-    'gradient-chat': 'linear-gradient(180deg, #444444ff 0%, #FFFFFF 20%)',
+    'gradient-chat': 'linear-gradient(180deg, #444444ff 0%, #FFFFFF 13%)',
     'shadow-bubble': '0 4px 16px rgba(24, 24, 27, 0.4)',
     'shadow-bubble-hover': '0 6px 20px rgba(24, 24, 27, 0.55)',
     'shadow-bubble-close': '0 4px 16px rgba(239, 68, 68, 0.4)',
