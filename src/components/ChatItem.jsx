@@ -14,7 +14,7 @@ const CommodityCard = ({ data }) => {
   const toBuy = () => {
     console.log('toBuy', skus);
     
-    const variantId = skus?.[0]?.out_sku_code;
+    const variantId = skus?.[0]?.out_sku_code.replace('ERP_VAR_', '');
     if (!variantId) return;
     fetch("/cart/add.js", {
       method: "POST",
@@ -30,7 +30,7 @@ const CommodityCard = ({ data }) => {
   const addToCart = () => {
     console.log('addToCart', skus);
     
-    const variantId = skus?.[0]?.out_sku_code;
+    const variantId = skus?.[0]?.out_sku_code.replace('ERP_VAR_', '');
     if (!variantId) return;
     fetch("/cart/add.js", {
       method: "POST",
