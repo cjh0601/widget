@@ -143,8 +143,8 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     const vh = window.innerHeight;
     const GAP = 16;
     const MARGIN = 24;
-    const PANEL_W = 420;
-    const PANEL_H = 720;
+    const PANEL_W = isExpanded ? 600 : 420;
+    const PANEL_H = isExpanded ? 800 : 720;
 
     const style = {};
 
@@ -172,7 +172,7 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     }
 
     setPanelAnchorStyle(style);
-  }, [isOpen, bubbleOffset, enableDrag]);
+  }, [isOpen, isExpanded, bubbleOffset, enableDrag]);
 
   if (!isOpen) {
     return (
