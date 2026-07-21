@@ -43,10 +43,20 @@ if (mountNode) {
   // 读取自定义气泡图标
   const bubbleIcon = mountNode?.dataset?.bubbleIcon || '';
 
+  // 读取 botConfig 中的 prologue
+  let prologue = '';
+  try {
+    const botConfigRaw = mountNode?.dataset?.botConfig;
+    if (botConfigRaw) {
+      const botConfig = JSON.parse(botConfigRaw);
+      prologue = botConfig.prologue || '';
+    }
+  } catch (e) { /* ignore parse error */ }
+
   ReactDOM.createRoot(mountNode).render(
     React.createElement(React.StrictMode, null,
       React.createElement(ConfigProvider, { theme, settings: widgetSettings },
-        React.createElement(App, { ...config, enableDrag, bubbleIcon })
+        React.createElement(App, { ...config, enableDrag, bubbleIcon, prologue })
       )
     )
   );

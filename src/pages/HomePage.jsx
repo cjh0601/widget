@@ -2,7 +2,7 @@ import React from 'react';
 import { IconComment, IconClose, IconShoppingBag, IconGift, IconChevronRight } from '@douyinfe/semi-icons';
 import './HomePage.scss';
 
-export default function HomePage({ onSwitchToChat, onClose }) {
+export default function HomePage({ onSwitchToChat, onClose, prologue }) {
   const shopHighlights = [
     {
       key: 'best-sellers',
@@ -38,8 +38,7 @@ export default function HomePage({ onSwitchToChat, onClose }) {
       <div className="home-page__body">
         {/* Title */}
         <div className="home-page__title-section">
-          <h1 className="home-page__title">Hi <span className="home-page__wave">👋</span></h1>
-          <h1 className="home-page__title">How can we help you?</h1>
+          <h1 className="home-page__title">{prologue || ''}</h1>
         </div>
 
         {/* Contact Card */}
