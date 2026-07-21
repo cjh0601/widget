@@ -39,6 +39,19 @@
   transition: width 0.3s ease, height 0.3s ease;
 }
 
+.widget-panel--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(16px) scale(0.98);
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
 .widget-panel--expanded {
   width: min(600px, calc(100vw - 40px));
   height: min(800px, calc(100vh - 128px));

@@ -40,10 +40,13 @@ if (mountNode) {
   const enableDragRaw = mountNode?.dataset?.enableDrag;
   const enableDrag = enableDragRaw === '' || enableDragRaw === 'true' || enableDragRaw == null;
 
+  // 读取自定义气泡图标
+  const bubbleIcon = mountNode?.dataset?.bubbleIcon || '';
+
   ReactDOM.createRoot(mountNode).render(
     React.createElement(React.StrictMode, null,
       React.createElement(ConfigProvider, { theme, settings: widgetSettings },
-        React.createElement(App, { ...config, enableDrag })
+        React.createElement(App, { ...config, enableDrag, bubbleIcon })
       )
     )
   );

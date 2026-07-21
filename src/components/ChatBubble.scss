@@ -45,6 +45,13 @@
   cursor: pointer;
 }
 
+.chat-bubble__custom-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 
 @media (max-width: 640px) {

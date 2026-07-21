@@ -6,7 +6,7 @@ import ChatPage from './pages/ChatPage';
 import HelpPage from './pages/HelpPage';
 import './App.scss';
 
-export default function App({ inboxId, visitorId, enableDrag }) {
+export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -174,34 +174,22 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     setPanelAnchorStyle(style);
   }, [isOpen, isExpanded, bubbleOffset, enableDrag]);
 
-  if (!isOpen) {
-    return (
-      <ChatBubble
-        isOpen={false}
-        onClick={handleBubbleClick}
-        onDragStart={handleDragStart}
-        isDragging={isDragging}
-        enableDrag={enableDrag}
-        bubbleStyle={bubbleStyle}
-      />
-    );
-  }
-
   return (
     <>
-      {/* 气泡始终显示，用于关闭面板 */}
+      {/* 气泡始终显示 */}
       <ChatBubble
-        isOpen={true}
+        isOpen={isOpen}
         onClick={handleBubbleClick}
         onDragStart={handleDragStart}
         isDragging={isDragging}
         enableDrag={enableDrag}
         bubbleStyle={bubbleStyle}
+        bubbleIcon={bubbleIcon}
       />
 
-      {/* 面板：根据气泡位置自适应弹出方向 */}
+      {/* 面板始终渲染，通过 CSS 控制显隐，避免 WebSocket 重复连接 */}
       <div
-        className={`widget-panel ${isExpanded ? 'widget-panel--expanded' : ''}`}
+        className={`widget-panel ${isExpanded ? 'widget-panel--expanded' : ''} ${!isOpen ? 'widget-panel--hidden' : ''}`}
         style={panelAnchorStyle}
       >
         {/* 页面内容区域 */}
