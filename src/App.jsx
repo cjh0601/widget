@@ -18,6 +18,7 @@ export default function App({ inboxId, visitorId, enableDrag }) {
   const bubbleOffsetRef = useRef({ x: 0, y: 0 });
   const dragStartRef = useRef({ x: 0, y: 0 });
   const hasDraggedRef = useRef(false);
+  const bubbleRectRef = useRef(null); // 拖拽开始时气泡的屏幕位置（含已累积的偏移）
 
   const handleClose = () => setIsOpen(false);
 
@@ -38,6 +39,11 @@ export default function App({ inboxId, visitorId, enableDrag }) {
     setIsDragging(true);
     hasDraggedRef.current = false;
     dragStartRef.current = { x: clientX, y: clientY };
+
+    // 记录气泡当前的屏幕位置，用于后续边界钳制
+    const root = window.__CHAT_SHADOW_ROOT__ || document;
+    const bubble = root.querySelector('.chat-bubble');
+    bubbleRectRef.current = bubble ? bubble.getBoundingClientRect() : null;
   }, [enableDrag]);
 
   useEffect(() => {
@@ -48,24 +54,36 @@ export default function App({ inboxId, visitorId, enableDrag }) {
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       const dx = clientX - dragStartRef.current.x;
       const dy = clientY - dragStartRef.current.y;
-      const rawX = bubbleOffsetRef.current.x + dx;
-      const rawY = bubbleOffsetRef.current.y + dy;
 
-      // 边界钳制：气泡尺寸 64×64，默认距右下 24px
-      const BUBBLE_SIZE = 64;
+      // 基于气泡实际屏幕位置做边界钳制（兼容 left / center / right 任意初始位置）
       const MARGIN = 24;
-      const maxX = MARGIN;
-      const minX = -(window.innerWidth - MARGIN - BUBBLE_SIZE);
-      const maxY = MARGIN;
-      const minY = -(window.innerHeight - MARGIN - BUBBLE_SIZE);
+      const rect = bubbleRectRef.current;
+      const maxDx = rect ? window.innerWidth - MARGIN - rect.right : Infinity;
+      const minDx = rect ? MARGIN - rect.left : -Infinity;
+      const maxDy = rect ? window.innerHeight - MARGIN - rect.bottom : Infinity;
+      const minDy = rect ? MARGIN - rect.top : -Infinity;
+
+      const clampedDx = Math.min(maxDx, Math.max(minDx, dx));
+      const clampedDy = Math.min(maxDy, Math.max(minDy, dy));
 
       const newOffset = {
-        x: Math.min(maxX, Math.max(minX, rawX)),
-        y: Math.min(maxY, Math.max(minY, rawY)),
+        x: bubbleOffsetRef.current.x + clampedDx,
+        y: bubbleOffsetRef.current.y + clampedDy,
       };
       bubbleOffsetRef.current = newOffset;
       setBubbleOffset(newOffset);
       dragStartRef.current = { x: clientX, y: clientY };
+
+      // 更新 rect 引用，使后续 move 事件基于最新位置钳制
+      if (rect) {
+        bubbleRectRef.current = {
+          left: rect.left + clampedDx,
+          right: rect.right + clampedDx,
+          top: rect.top + clampedDy,
+          bottom: rect.bottom + clampedDy,
+        };
+      }
+
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
         hasDraggedRef.current = true;
       }
