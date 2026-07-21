@@ -12,7 +12,9 @@ const CommodityCard = ({ data }) => {
   const { pic, title, price, skus } = data || {};
 
   const toBuy = () => {
-    const variantId = skus?.[0]?.id;
+    console.log('toBuy', skus);
+    
+    const variantId = skus?.[0]?.out_sku_code;
     if (!variantId) return;
     fetch("/cart/add.js", {
       method: "POST",
@@ -26,7 +28,9 @@ const CommodityCard = ({ data }) => {
   };
 
   const addToCart = () => {
-    const variantId = skus?.[0]?.id;
+    console.log('addToCart', skus);
+    
+    const variantId = skus?.[0]?.out_sku_code;
     if (!variantId) return;
     fetch("/cart/add.js", {
       method: "POST",
