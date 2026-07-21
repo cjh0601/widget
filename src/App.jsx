@@ -122,10 +122,7 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
   const [panelAnchorStyle, setPanelAnchorStyle] = useState(undefined);
 
   useLayoutEffect(() => {
-    if (!isOpen) {
-      setPanelAnchorStyle(undefined);
-      return;
-    }
+    if (!isOpen) return;
     // 未拖拽时使用 CSS 默认定位（气泡右下角，面板在上方）
     if (!enableDrag || (bubbleOffset.x === 0 && bubbleOffset.y === 0)) {
       setPanelAnchorStyle(undefined);
