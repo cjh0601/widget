@@ -24,7 +24,7 @@ function formatToHM(time) {
   return `${hh}:${mm}`;
 }
 
-export default function ChatPage({ inboxId, visitorId, initialMessage, onInitialMessageSent, onClose, isExpanded, onToggleExpand }) {
+export default function ChatPage({ inboxId, visitorId, initialMessage, onInitialMessageSent, onClose, isExpanded, onToggleExpand, isPanelOpen, onNewAgentMessage }) {
   // ---- 会话状态 ----
   const [sourceId, setSourceId] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -41,6 +41,10 @@ export default function ChatPage({ inboxId, visitorId, initialMessage, onInitial
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
+  const isPanelOpenRef = useRef(isPanelOpen);
+  const onNewAgentMessageRef = useRef(onNewAgentMessage);
+  isPanelOpenRef.current = isPanelOpen;
+  onNewAgentMessageRef.current = onNewAgentMessage;
 
   // ---- 工具函数 ----
   const scrollToBottom = useCallback((instant = false) => {
@@ -134,6 +138,11 @@ export default function ChatPage({ inboxId, visitorId, initialMessage, onInitial
               parsed?.message?.data?.content &&
               parsed?.message?.data?.sender_type !== 'Contact'
             ) {
+              // 面板关闭时通知父组件有未读消息
+              if (!isPanelOpenRef.current) {
+                onNewAgentMessageRef.current?.();
+              }
+
               const nextFollowUp = parsed?.message?.data?.outputs?.follow_up;
               setFollowUp(
                 Array.isArray(nextFollowUp) ? nextFollowUp : []

@@ -11,6 +11,7 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
   const [activeTab, setActiveTab] = useState('home');
   const [isExpanded, setIsExpanded] = useState(false);
   const [initialMessage, setInitialMessage] = useState('');
+  const [hasUnread, setHasUnread] = useState(false);
 
   // ---- 气泡拖拽 ----
   const [bubbleOffset, setBubbleOffset] = useState({ x: 0, y: 0 });
@@ -21,6 +22,11 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
   const bubbleRectRef = useRef(null); // 拖拽开始时气泡的屏幕位置（含已累积的偏移）
 
   const handleClose = () => setIsOpen(false);
+
+  // 打开面板时清除未读状态
+  useEffect(() => {
+    if (isOpen) setHasUnread(false);
+  }, [isOpen]);
 
   const switchTab = (tab) => setActiveTab(tab);
 
@@ -182,6 +188,7 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
         enableDrag={enableDrag}
         bubbleStyle={bubbleStyle}
         bubbleIcon={bubbleIcon}
+        hasUnread={hasUnread}
       />
 
       {/* 面板始终渲染，通过 CSS 控制显隐，避免 WebSocket 重复连接 */}
@@ -207,6 +214,8 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon }) {
               onClose={handleClose}
               isExpanded={isExpanded}
               onToggleExpand={toggleExpand}
+              isPanelOpen={isOpen}
+              onNewAgentMessage={() => setHasUnread(true)}
             />
           </div>
 
