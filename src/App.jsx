@@ -6,7 +6,7 @@ import ChatPage from './pages/ChatPage';
 import HelpPage from './pages/HelpPage';
 import './App.scss';
 
-export default function App({ inboxId, visitorId, enableDrag, bubbleIcon, prologue }) {
+export default function App({ inboxId, visitorId, shopDomain, enableDrag, bubbleIcon, prologue }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -210,6 +210,7 @@ export default function App({ inboxId, visitorId, enableDrag, bubbleIcon, prolog
             <ChatPage
               inboxId={inboxId}
               visitorId={visitorId}
+              shopDomain={shopDomain}
               initialMessage={initialMessage}
               onInitialMessageSent={() => setInitialMessage('')}
               onClose={handleClose}

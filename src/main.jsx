@@ -10,11 +10,12 @@ function getMountRoot() {
   return window.__CHAT_SHADOW_ROOT__ || document;
 }
 
-// 从 Shadow DOM 中的挂载节点读取 inboxId 和 visitorId
+// 从 Shadow DOM 中的挂载节点读取配置
 function getConfig(mountNode) {
   const inboxId = mountNode?.dataset?.inboxId || '';
   const visitorId = mountNode?.dataset?.visitorId || '';
-  return { inboxId, visitorId };
+  const shopDomain = mountNode?.dataset?.shopDomain || '';
+  return { inboxId, visitorId, shopDomain };
 }
 
 const root = getMountRoot();

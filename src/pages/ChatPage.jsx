@@ -24,7 +24,7 @@ function formatToHM(time) {
   return `${hh}:${mm}`;
 }
 
-export default function ChatPage({ inboxId, visitorId, initialMessage, onInitialMessageSent, onClose, isExpanded, onToggleExpand, isPanelOpen, onNewAgentMessage }) {
+export default function ChatPage({ inboxId, visitorId, shopDomain, initialMessage, onInitialMessageSent, onClose, isExpanded, onToggleExpand, isPanelOpen, onNewAgentMessage }) {
   // ---- 会话状态 ----
   const [sourceId, setSourceId] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -237,7 +237,7 @@ export default function ChatPage({ inboxId, visitorId, initialMessage, onInitial
 
     (async () => {
       try {
-        const session = await initChatSession({ inboxId, visitorId });
+        const session = await initChatSession({ inboxId, visitorId, shopDomain });
         if (cancelled || !session) {
           setIsInitLoading(false);
           return;

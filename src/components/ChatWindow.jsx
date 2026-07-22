@@ -24,7 +24,7 @@ function formatToHM(time) {
   return `${hh}:${mm}`;
 }
 
-export default function ChatWindow({ isOpen, inboxId, visitorId, onClose }) {
+export default function ChatWindow({ isOpen, inboxId, visitorId, shopDomain, onClose }) {
   // ---- 会话状态 ----
   const [sourceId, setSourceId] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -218,7 +218,7 @@ export default function ChatWindow({ isOpen, inboxId, visitorId, onClose }) {
 
     (async () => {
       try {
-        const session = await initChatSession({ inboxId, visitorId });
+        const session = await initChatSession({ inboxId, visitorId, shopDomain });
         if (cancelled || !session) {
           setIsInitLoading(false);
           return;
